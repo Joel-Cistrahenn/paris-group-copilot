@@ -1,4 +1,6 @@
-import { listarProjetos, listarHipoteses } from "@/lib/api";
+import AppLayout from "@/components/layouts/AppLayout";
+import ProjectList from "@/components/projetos/ProjectList";
+import { listarHipoteses, listarProjetos } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
 
@@ -8,38 +10,20 @@ export default async function ProjetoPage() {
 
   if (projetos === null) {
     return (
-      <main style={{ padding: 32, maxWidth: 720 }}>
-        <h1>Projeto</h1>
+      <AppLayout titulo="Projetos">
         <p>
           API indisponível. Suba com <code>docker compose up -d</code> e recarregue.
         </p>
-      </main>
+      </AppLayout>
     );
   }
 
   return (
-    <main style={{ padding: 32, maxWidth: 720 }}>
-      <h1>Projetos</h1>
-
-      {projetos.length === 0 ? (
-        <p>Nenhum projeto cadastrado ainda.</p>
-      ) : (
-        <ul style={{ lineHeight: 1.9 }}>
-          {projetos.map((p) => {
-            const n = hipoteses?.filter((h) => h.projeto_id === p.id).length ?? 0;
-            return (
-              <li key={p.id}>
-                <strong>{p.nome}</strong> — {p.descricao || "sem descrição"}{" "}
-                <span style={{ opacity: 0.7 }}>({n} hipótese{n === 1 ? "" : "s"})</span>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-
-      <p style={{ marginTop: 32 }}>
-        <a href="/hipotese">Cadastrar hipótese →</a>
-      </p>
-    </main>
+    <AppLayout
+      titulo="Projetos"
+      descricao="Cada projeto acumula as hipóteses já testadas pelo studio e o resultado de cada uma."
+    >
+      <ProjectList projetos={projetos} hipoteses={hipoteses ?? []} />
+    </AppLayout>
   );
 }
