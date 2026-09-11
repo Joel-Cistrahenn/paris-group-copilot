@@ -85,3 +85,12 @@ Colar o link em dois lugares — é o requisito de rastreabilidade:
 
 1. `docs/handoff-sprint.md`, seção "Demo"
 2. Descrição desta Pull Request
+
+---
+
+## Gravação final
+
+🎥 https://drive.google.com/file/d/1c5Kgl_uILzVsVNmtHQKWKmeE0n2iyqK2/view?usp=sharing
+
+Duração: 2m27s. Editada a partir de 7m05s de gravação bruta — cortados os
+retakes, o silêncio morto e as pausas longas.

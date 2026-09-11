@@ -10,7 +10,11 @@ Autor: Joel-Cistrahenn · Repositório: `Joel-Cistrahenn/paris-group-copilot`
 
 ## Demo
 
-🎥 **Loom (3 min):** `<colar link aqui após gravar>`
+🎥 **Demo (2m27s):** https://drive.google.com/file/d/1c5Kgl_uILzVsVNmtHQKWKmeE0n2iyqK2/view?usp=sharing
+
+Hospedado no Google Drive em vez do Loom — o app do Loom não funcionou na
+máquina do autor. O conteúdo segue o padrão da casa: até 3 minutos, com contexto
+de negócio, demonstração do fluxo, contexto técnico e próximos passos.
 
 Roteiro cronometrado em [`docs/demo-roteiro.md`](demo-roteiro.md).
 
