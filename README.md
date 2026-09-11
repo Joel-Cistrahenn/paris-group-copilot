@@ -1,43 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Paris Group Copilot
 
-## Getting Started
+Copiloto de venture studio para discovery e execução de MVPs com IA.
 
-First, run the development server:
+Registro de projetos e hipóteses: cada hipótese guarda o resultado
+(`em_teste` / `validada` / `refutada`). É esse campo que responde a pergunta que
+justifica o produto — *"já testaram isso antes?"*.
+
+## Rodando local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev                 # Next.js em localhost:3000
+docker compose up -d        # API em localhost:8000, Postgres em 5432
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Serviço | URL |
+|---|---|
+| Frontend | http://localhost:3000 — rotas `/projeto` e `/hipotese` |
+| API + Swagger | http://localhost:8000/docs |
+| Health | http://localhost:8000/health |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verificação antes do PR
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
+```bash
+npx tsc --noEmit
+docker compose ps
+curl -s localhost:8000/health
+```
 
 ## Documentação
 
-- [Caso Fênix Studio](docs/caso-fenix.md) — estudo de caso do Módulo 1: enquadramento, hipótese, stack e ciclo de vida em 6 semanas.
-- [Arquitetura da stack](docs/arquitetura.md) — justificativa de cada componente e divergências em relação ao chassi da Paris Group.
-- [Enquadramento do problema](docs/enquadramento.md) — contexto, dor, hipótese de valor e métrica de validação.
+- [Enquadramento do problema](docs/enquadramento.md) — contexto, dor, hipótese de valor e métrica.
+- [Arquitetura da stack](docs/arquitetura.md) — justificativa de cada componente e divergência declarada em relação ao chassi da Paris Group.
+- [Caso Fênix Studio](docs/caso-fenix.md) — estudo de caso: enquadramento, hipótese, stack e ciclo de vida em 6 semanas.
+- [Checkpoint Módulo 1](docs/checkpoint-modulo-1.md) — verificação de aprendizado.
+- [AGENTS.md](AGENTS.md) — regras canônicas para agentes de IA e humanos.
+
+## Convenções
+
+Conventional Commits, sem push direto na `main`, PR com Contexto + Evidência +
+Rastreabilidade. Ver `AGENTS.md`.
