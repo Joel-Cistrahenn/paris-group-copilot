@@ -3,13 +3,18 @@
 Atualização assíncrona de sprint para os investidores da Vitalis. Três componentes
 linkados entre si.
 
-## Componente 1 — Demo em vídeo (Loom)
+## Componente 1 — Demo em vídeo
 
-**Estado: roteiro pronto, gravação pendente do aluno.**
+🎥 **https://drive.google.com/file/d/1c5Kgl_uILzVsVNmtHQKWKmeE0n2iyqK2/view?usp=sharing**
 
-Declaração honesta: a gravação exige tela, voz e conta do aluno — não foi
-simulada nem substituída por descrição fictícia. O roteiro cronometrado de 3
-minutos está em `docs/demo-roteiro.md`, com quatro blocos:
+**Duração: 2m27s** (limite era 3 minutos). Gravada pelo aluno com a tela e a voz
+dele, editada a partir de 7m05s de material bruto — cortados os retakes, 98
+segundos de silêncio morto e as pausas longas.
+
+Hospedada no Google Drive em vez do Loom: o app do Loom não funcionou na máquina
+do autor. O formato e a duração seguem o padrão da casa.
+
+Os quatro blocos do roteiro (`docs/demo-roteiro.md`):
 
 | Tempo | Bloco | Conteúdo |
 |---|---|---|
@@ -18,8 +23,8 @@ minutos está em `docs/demo-roteiro.md`, com quatro blocos:
 | 1:30–2:15 | contexto técnico | OpenAPI em `/docs` e as três decisões da sprint |
 | 2:15–3:00 | bloqueios e próximos passos | dois bloqueios com owner e prazo |
 
-Inclui checklist de gravação e a instrução de colar o link em dois lugares
-(handoff e descrição do PR) para fechar a rastreabilidade.
+O link foi colado nos dois lugares exigidos pela rastreabilidade: seção "Demo"
+do `docs/handoff-sprint.md` e seção "Rastreabilidade" da descrição do PR #3.
 
 ## Componente 2 — Handoff no formato Orca
 
@@ -46,7 +51,7 @@ Com a articulação de qual é o mais crítico: o 1, porque para o progresso —
 sem escopo não há o que instrumentar, sem instrumentação a hipótese não pode ser
 validada. O 2 apenas acumula dívida já documentada e reversível.
 
-**(c) Link do vídeo** — seção "Demo" do handoff, aguardando o link da gravação.
+**(c) Link do vídeo** — na seção "Demo" do handoff: https://drive.google.com/file/d/1c5Kgl_uILzVsVNmtHQKWKmeE0n2iyqK2/view?usp=sharing
 
 ## Componente 3 — Pull Request com descrição padronizada
 
@@ -76,7 +81,7 @@ foi ativado.
 ## Os três componentes estão linkados
 
 ```
-PR #3 ──> docs/handoff-sprint.md ──> docs/demo-roteiro.md ──> [link do Loom]
+PR #3 ──> docs/handoff-sprint.md ──> docs/demo-roteiro.md ──> vídeo (2m27s)
   │                  │
   └──────────────────┴──> CHORE-216, CHORE-217, FEAT-001, TASK-002 (TaskNotes)
 ```
@@ -95,7 +100,11 @@ Autor: Joel-Cistrahenn · Repositório: `Joel-Cistrahenn/paris-group-copilot`
 
 ## Demo
 
-🎥 **Loom (3 min):** `<colar link aqui após gravar>`
+🎥 **Demo (2m27s):** https://drive.google.com/file/d/1c5Kgl_uILzVsVNmtHQKWKmeE0n2iyqK2/view?usp=sharing
+
+Hospedado no Google Drive em vez do Loom — o app do Loom não funcionou na
+máquina do autor. O conteúdo segue o padrão da casa: até 3 minutos, com contexto
+de negócio, demonstração do fluxo, contexto técnico e próximos passos.
 
 Roteiro cronometrado em [`docs/demo-roteiro.md`](demo-roteiro.md).
 
