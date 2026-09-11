@@ -28,7 +28,7 @@ enunciado. A equivalência:
 |---|---|
 | `pages/_app.tsx` | `src/app/layout.tsx` + `AppLayout` |
 | `pages/index.tsx` | `src/app/page.tsx` |
-| `pages/projects/index.tsx` | `src/app/projeto/page.tsx` |
+| `pages/projects/index.tsx` | `src/app/projeto/page.tsx` (+ alias `/projects`) |
 | `pages/projects/[id].tsx` | `src/app/projeto/[id]/page.tsx` |
 | `lib/api/client.ts` | `src/lib/api.ts` |
 | `lib/config.ts` | `src/lib/config.ts` |
@@ -156,6 +156,34 @@ resultado: "em_teste" | "validada" | "refutada"; }'.
 
 Divergência de contrato virou erro de compilação. Revertido em seguida.
 
+### Rota `/projects` respondendo
+
+O produto é escrito em português — entidades, rotas e schema. Para que links e
+documentação em inglês não quebrem, `src/app/projects/page.tsx` é um alias que
+redireciona para a rota canônica, em vez de duplicar a página:
+
+```tsx
+import { redirect } from "next/navigation";
+
+export default function ProjectsAlias() {
+  redirect("/projeto");
+}
+```
+
+```
+$ curl -o /dev/null -w '%{http_code} -> %{redirect_url}' localhost:3000/projects
+307 -> http://localhost:3000/projeto
+
+$ curl -L -o /dev/null -w '%{http_code}' localhost:3000/projects
+200
+
+$ curl -L localhost:3000/projects | grep '<a href="/projeto/1">'
+<a href="/projeto/1">Paris Group Copilot</a>
+```
+
+A rota `/projects` responde e renderiza o `ProjectList` com os dados reais vindos
+do FastAPI — uma fonte de verdade só, sem página duplicada.
+
 ### Sem `any`
 
 ```
@@ -264,6 +292,7 @@ src/app/layout.tsx
 src/app/page.tsx
 src/app/projeto/[id]/page.tsx
 src/app/projeto/page.tsx
+src/app/projects/page.tsx
 src/components/layouts/AppLayout.tsx
 src/components/projetos/ProjectCard.tsx
 src/components/projetos/ProjectList.tsx
