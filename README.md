@@ -36,6 +36,7 @@ curl -s localhost:8000/health
 - [Checkpoint Módulo 1](docs/checkpoint-modulo-1.md) — verificação de aprendizado.
 - [Handoff de sprint](docs/handoff-sprint.md) — atualização assíncrona para stakeholders, com decisões, bloqueios e próximos passos.
 - [Roteiro da demo](docs/demo-roteiro.md) — script cronometrado de 3 minutos para o Loom.
+- [Checkpoint Módulo 2](docs/checkpoint-modulo-2.md) — verificação de aprendizado sobre colaboração com IA e ferramentas de fluxo.
 - [AGENTS.md](AGENTS.md) — regras canônicas para agentes de IA e humanos.
 
 ## Convenções
