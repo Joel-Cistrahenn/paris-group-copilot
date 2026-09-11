@@ -31,6 +31,7 @@ curl -s localhost:8000/health
 ## Documentação
 
 - [Enquadramento do problema](docs/enquadramento.md) — contexto, dor, hipótese de valor e métrica.
+- [Contrato tipado FastAPI ↔ Next.js](docs/contrato-tipado.md) — tipos gerados do OpenAPI e prova do gate de compilação.
 - [Arquitetura da stack](docs/arquitetura.md) — justificativa de cada componente e divergência declarada em relação ao chassi da Paris Group.
 - [Caso Fênix Studio](docs/caso-fenix.md) — estudo de caso: enquadramento, hipótese, stack e ciclo de vida em 6 semanas.
 - [Checkpoint Módulo 1](docs/checkpoint-modulo-1.md) — verificação de aprendizado.
