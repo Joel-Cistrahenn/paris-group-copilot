@@ -38,4 +38,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Documentação
 
+- [Arquitetura da stack](docs/arquitetura.md) — justificativa de cada componente e divergências em relação ao chassi da Paris Group.
 - [Enquadramento do problema](docs/enquadramento.md) — contexto, dor, hipótese de valor e métrica de validação.
