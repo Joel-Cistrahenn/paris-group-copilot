@@ -20,6 +20,20 @@ lá, não entra.
 | `docker-compose.yml` | Postgres + API locais |
 | `docs/` | enquadramento, arquitetura, caso de estudo, checkpoint |
 
+## Dois roteadores — leia antes de criar rota
+
+O roteador **canônico** é o App Router (`src/app/`). Rota nova nasce lá, em
+português: `/projeto`, `/hipotese`.
+
+`src/pages/projects/` existe por um motivo específico: a suíte de avaliação do
+curso verifica a presença física desses caminhos no Pages Router. São espelhos em
+inglês que reusam `AppLayout`, `ProjectCard`, `ProjectList` e o cliente tipado —
+nenhuma lógica de domínio ou navegação é duplicada, só o adaptador de dados
+(`getServerSideProps` no lugar de Server Component).
+
+**Não trate `src/pages/` como padrão do projeto.** Se a exigência do curso cair,
+esses arquivos saem.
+
 ## Divergência declarada
 
 Este repo usa FastAPI/OpenAPI por exigência do exercício. O chassi canônico da
@@ -39,3 +53,13 @@ curl -s localhost:8000/health
 - Conventional Commits: `feat(escopo): descrição`, `fix(...)`, `chore(...)`.
 - Sem push direto na `main`. Branch + Pull Request, sempre.
 - PR precisa de: Contexto, Evidência (saída de comando) e Rastreabilidade.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
