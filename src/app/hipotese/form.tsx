@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { API_URL, type NovaHipotese, type Projeto } from "@/lib/api";
+import { criarHipotese, type NovaHipotese, type Projeto } from "@/lib/api";
 
 const campo = { display: "block", width: "100%", padding: 8, marginBottom: 12 };
 
@@ -24,29 +24,10 @@ export default function FormHipotese({ projetos }: { projetos: Projeto[] }) {
       resultado: "em_teste",
     };
 
-    try {
-      const r = await fetch(`${API_URL}/hipoteses`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!r.ok) {
-        console.error(`[api] falha em POST /hipoteses: HTTP ${r.status}`);
-        const corpo: unknown = await r.json().catch(() => null);
-        const detalhe =
-          corpo && typeof corpo === "object" && "detail" in corpo
-            ? String((corpo as { detail: unknown }).detail)
-            : `erro ${r.status}`;
-        setErro(detalhe);
-        return;
-      }
-      setOk(true);
-    } catch (causa) {
-      console.error("[api] falha em POST /hipoteses:", causa);
-      setErro("Não foi possível falar com a API.");
-    } finally {
-      setEnviando(false);
-    }
+    const r = await criarHipotese(payload);
+    if (r.ok) setOk(true);
+    else setErro(r.erro);
+    setEnviando(false);
   }
 
   return (
@@ -63,7 +44,7 @@ export default function FormHipotese({ projetos }: { projetos: Projeto[] }) {
       </label>
 
       <label>
-        Enunciado — Se [X], então [Y], porque [Z]
+        Enunciado â Se [X], então [Y], porque [Z]
         <textarea name="enunciado" required rows={4} style={campo} />
       </label>
 
