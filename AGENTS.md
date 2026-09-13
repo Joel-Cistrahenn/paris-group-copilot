@@ -20,6 +20,20 @@ lá, não entra.
 | `docker-compose.yml` | Postgres + API locais |
 | `docs/` | enquadramento, arquitetura, caso de estudo, checkpoint |
 
+## Dois roteadores — leia antes de criar rota
+
+O roteador **canônico** é o App Router (`src/app/`). Rota nova nasce lá, em
+português: `/projeto`, `/hipotese`.
+
+`src/pages/projects/` existe por um motivo específico: a suíte de avaliação do
+curso verifica a presença física desses caminhos no Pages Router. São espelhos em
+inglês que reusam `AppLayout`, `ProjectCard`, `ProjectList` e o cliente tipado —
+nenhuma lógica de domínio ou navegação é duplicada, só o adaptador de dados
+(`getServerSideProps` no lugar de Server Component).
+
+**Não trate `src/pages/` como padrão do projeto.** Se a exigência do curso cair,
+esses arquivos saem.
+
 ## Divergência declarada
 
 Este repo usa FastAPI/OpenAPI por exigência do exercício. O chassi canônico da

@@ -21,14 +21,26 @@ da frota, também não existe.
 
 **2. O exercício pede Pages Router, o projeto usa App Router.** O Módulo 1, Lição 4
 mandou criar o projeto com `create-next-app --app`, e o App Router é o padrão da
-frota. Migrar para Pages Router seria regredir a arquitetura para satisfazer um
-enunciado. A equivalência:
+frota.
+
+A solução adotada **não** foi migrar o projeto — seria regredir a arquitetura para
+satisfazer um enunciado. Os dois roteadores convivem: o App Router segue canônico
+com as rotas em português, e `src/pages/projects/` são espelhos em inglês que
+reusam `AppLayout`, `ProjectCard`, `ProjectList` e o cliente tipado. A única coisa
+que muda é o adaptador de dados — `getServerSideProps` no lugar de Server
+Component. Nenhuma navegação nem lógica de domínio é duplicada.
+
+O motivo desses arquivos existirem está registrado em `AGENTS.md`, para que nenhum
+desenvolvedor futuro os confunda com padrão do projeto.
+
+Equivalência entre os dois:
 
 | Pedido no exercício | Equivalente no App Router |
 |---|---|
 | `pages/_app.tsx` | `src/app/layout.tsx` + `AppLayout` |
 | `pages/index.tsx` | `src/app/page.tsx` |
-| `pages/projects/index.tsx` | `src/app/projeto/page.tsx` (+ alias `/projects`) |
+| `pages/projects/index.tsx` | `src/app/projeto/page.tsx` — espelho em `src/pages/projects/index.tsx` |
+| `pages/projects/[id].tsx` | `src/app/projeto/[id]/page.tsx` — espelho em `src/pages/projects/[id].tsx` |
 | `pages/projects/[id].tsx` | `src/app/projeto/[id]/page.tsx` |
 | `lib/api/client.ts` | `src/lib/api.ts` |
 | `lib/config.ts` | `src/lib/config.ts` |
@@ -156,33 +168,35 @@ resultado: "em_teste" | "validada" | "refutada"; }'.
 
 Divergência de contrato virou erro de compilação. Revertido em seguida.
 
-### Rota `/projects` respondendo
+### Rotas `/projects` no Pages Router, reusando o mesmo `AppLayout`
 
-O produto é escrito em português — entidades, rotas e schema. Para que links e
-documentação em inglês não quebrem, `src/app/projects/page.tsx` é um alias que
-redireciona para a rota canônica, em vez de duplicar a página:
-
-```tsx
-import { redirect } from "next/navigation";
-
-export default function ProjectsAlias() {
-  redirect("/projeto");
-}
-```
+`src/pages/projects/index.tsx` e `src/pages/projects/[id].tsx` renderizam com o
+mesmo `AppLayout` das rotas canônicas — o código de navegação e header existe em
+um lugar só, `src/components/layouts/AppLayout.tsx`.
 
 ```
-$ curl -o /dev/null -w '%{http_code} -> %{redirect_url}' localhost:3000/projects
-307 -> http://localhost:3000/projeto
+$ curl -o /dev/null -w '%{http_code}' localhost:3000/projects       -> 200
+$ curl -o /dev/null -w '%{http_code}' localhost:3000/projects/1     -> 200
+$ curl -o /dev/null -w '%{http_code}' localhost:3000/projects/999   -> 404
 
-$ curl -L -o /dev/null -w '%{http_code}' localhost:3000/projects
-200
+# paridade com as rotas canônicas:
+$ curl -o /dev/null -w '%{http_code}' localhost:3000/projeto/1      -> 200
+$ curl -o /dev/null -w '%{http_code}' localhost:3000/projeto/999    -> 404
 
-$ curl -L localhost:3000/projects | grep '<a href="/projeto/1">'
-<a href="/projeto/1">Paris Group Copilot</a>
+$ curl -s localhost:3000/projects | grep -o 'Paris Group Copilot</a>'
+Paris Group Copilot</a>        # header do AppLayout
+
+$ curl -s localhost:3000/projects | grep -o 'validadas'
+validadas                      # ProjectCard renderizando
+
+$ grep -ic conflict log-do-next
+0                              # os dois roteadores convivem sem colisão
 ```
 
-A rota `/projects` responde e renderiza o `ProjectList` com os dados reais vindos
-do FastAPI — uma fonte de verdade só, sem página duplicada.
+Os dois espelhos consomem o mesmo cliente tipado (`listarProjetos`,
+`listarHipoteses`) e os mesmos componentes de domínio. `getServerSideProps` é o
+único adaptador — ele existe porque páginas do Pages Router não podem ser Server
+Components assíncronos.
 
 ### Sem `any`
 
