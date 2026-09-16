@@ -35,6 +35,8 @@ curl -s localhost:8000/health
 - [Arquitetura da stack](docs/arquitetura.md) — justificativa de cada componente e divergência declarada em relação ao chassi da Paris Group.
 - [Caso Fênix Studio](docs/caso-fenix.md) — estudo de caso: enquadramento, hipótese, stack e ciclo de vida em 6 semanas.
 - [Checkpoint Módulo 1](docs/checkpoint-modulo-1.md) — verificação de aprendizado.
+- [Pipeline de CI](docs/ci.md) — o que cada passo do workflow prova e por que a `main` é protegida.
+- [Checkpoint Módulo 3](docs/checkpoint-modulo-3.md) — verificação de aprendizado sobre scaffolding e estrutura.
 - [AGENTS.md](AGENTS.md) — regras canônicas para agentes de IA e humanos.
 
 ## Convenções

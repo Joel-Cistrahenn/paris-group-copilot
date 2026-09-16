@@ -1,0 +1,48 @@
+name: CI
+
+# Roda em todo PR contra a main e nos pushes para a main.
+# É o gate que a documentação de arquitetura chamava de "ausente": até aqui, o
+# typecheck dependia de alguém lembrar de rodar.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    name: typecheck · lint · build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node 22 + cache do npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      # O contrato OpenAPI é versionado em src/types/api.d.ts. O CI não sobe a
+      # API para regenerá-lo — ele verifica que o arquivo existe e compila.
+      - name: Conferir que os tipos do contrato estão versionados
+        run: test -f src/types/api.d.ts
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npx eslint src
+
+      # As páginas de dados são `force-dynamic`; o build não precisa da API no ar.
+      - name: Build
+        run: npm run build
